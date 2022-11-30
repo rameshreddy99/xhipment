@@ -1,0 +1,4 @@
+private FirebaseAuth mAuth;
+// ...
+// Initialize Firebase Auth
+mAuth = FirebaseAuth.getInstance();
