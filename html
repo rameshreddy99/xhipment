@@ -1,0 +1,74 @@
+<div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">Add Post  <i class="bi bi-plus-square"></i></button>
+    <br><br>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let post of postData">
+            <div class="card card-body">
+                <h5>{{post.title}}</h5>
+                <p class="text-muted">{{post.post}}</p>
+                <div class="d-flex align-items-center">
+                    <span class="mx-3">
+                        <i class="bi-pen" data-bs-toggle="modal" data-bs-target="#editPostModal" (click)="getAllDetails(post)"></i>
+                    </span>
+                    <span class="mx-3">
+                        <i class="bi-trash" (click)="deletePost(post)"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--add -->
+    <div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">New Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="postForm">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Title</label>
+                  <input type="text" class="form-control" id="recipient-name" formControlName="title">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Post</label>
+                  <textarea class="form-control" id="message-text" formControlName="post"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="addPost()" [disabled]="postForm.invalid">Add Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--edit-->
+      <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editForm">
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Title</label>
+                  <input type="text" class="form-control" id="recipient-name" formControlName="edit_title" [value]="postDetails?.title">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Post</label>
+                  <textarea class="form-control" id="message-text" formControlName="edit_post" [value]="postDetails?.post"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updatePost(postDetails)">Update Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
